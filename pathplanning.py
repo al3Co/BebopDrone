@@ -439,9 +439,9 @@ if __name__ == "__main__":
     mainPrueba()
 
 
-#Modificaciones realizadas
-#1) Giro de lado, izquierdo, derecho o error, funcion def spinSide()
-#2) Modificacion del tolerancia de angulo de giro y bajar bandera de AnguleReady, funcion def AngleReady()
-#3) Modificacion de FFtol = 0.00004 a FFtol = 0.00002
-#4) Modificacion de velocidad speedF y speedY funcion def speed()
-#5) Mover por "MoveBy" entre puntos
+#Modifications made
+# 1) Rotate side, left, right or error, function def spinSide ()
+# 2) Angle rotation tolerance modification and lower AnguleReady flag, AngleReady def function ()
+# 3) Modification of FFtol = 0.00004 to FFtol = 0.00002
+# 4) Modification of speed speedF and speedY function def speed ()
+# 5) Move by "MoveBy" between points

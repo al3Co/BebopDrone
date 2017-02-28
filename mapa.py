@@ -15,61 +15,50 @@ from main import *
 
 file = time.strftime("puntosGPS")
 f = open(file, 'w')
-# MANIPULACION DE ATRIBUTOS 
-LAT = 25.665330     # COORDENADAS INICIALES
+
+LAT = 25.665330     # INITIAL COORDS
 LON = -100.244560
-MAPA_ALTITUD = 680    # NO CAMBIAR--PUEDE DAR UN MARGEN DIFERENTE
+MAPA_ALTITUD = 680    # MARGEN
 ZOOM = 19
 
 
 class MapManager(object): 
-    '''
-    Esta clase contiene todo el codigo asociado con las cosas que aparecen
-    en el mapa que incluye las coordenadas reales obtenidas mediante calculos 
-    '''
-    #URL para la obtencion del mapa via API de google maps 
+    
+    
     BASE_URL = "http://maps.googleapis.com/maps/api/staticmap"
 
     def __init__(self, mapa_altitud, zoom, lat, lon):
         try:
             self.mapa_altitud = mapa_altitud
             self.zoom = zoom
-            self.static_map = self.peticion_de_mapa(lat, lon) #obtiene una respuesta para despues dibujar el mapa 
-            self.img = copy.copy(self.static_map) # copia la imagen lo que permite restablecer la original/principal
+            self.static_map = self.peticion_de_mapa(lat, lon)
+            self.img = copy.copy(self.static_map)
             self.centro_lat = lat                 
             self.centro_lon = lon
-            self.trazo_puntos = [] # Permite contener todos los puntos(waypoints) de lat y lon para despues trazarlos
+            self.trazo_puntos = []
         except Exception:
-            print 'NO ESTAS CONECTADO A INTERNET \n---------------------------- \nsigue los siguientes pasos:'    
-            print '1.- Ejecuta este software mientras estas conectado a internet'    
-            print '2.- Una vez abierto desconectate de internet sin cerrar la ventana'
-            print '3.- Establece conexion con el Bebop Parrot Drone'
-            print '4.- Haz click en el mapa creando la ruta'
-            print '5.- Da click a enviar para realizar la ruta o limpiar para seleccionar de nuevo'
+            print 'YOU ARE NOT CONNECTED TO THE INTERNET \ n ---------------------------- \ nfollow the following steps: '
+            print '1.- Run this software while connected to the internet '
+            print '2.- Once opened disconnect from the internet without closing the window '
+            print '3.- Sets connection to Bebop Parrot Drone '
+            print '4.- Click on the map to create the route '
+            print '5.- Click to send to perform the route or to clear to select again '
             print '--------------------------------------------------------------- \n'
             sys.exit()
 
     def peticion_de_mapa(self, lat, lon):
-        '''
-        Obtiene una imagen del mapa de Google mediante los parametros dados y devuelve 
-        la imagen como una matriz OPENCV
-        '''
         lat = "%s" % lat
         lon = "%s" % lon
         params = (self.BASE_URL, lat, lon, self.zoom, self.mapa_altitud, self.mapa_altitud)
-        full_url = "%s?center=%s,%s&zoom=%s&size=%sx%s&sensor=false&maptype=hybrid" % params #propiedades de google API
-        response = urllib2.urlopen(full_url)        # maptype = 'roadmap', 'terrain', 'satellite', 'hybrid
+        full_url = "%s?center=%s,%s&zoom=%s&size=%sx%s&sensor=false&maptype=hybrid" % params
+        response = urllib2.urlopen(full_url)
         png_bytes = np.asarray([ord(char) for char in response.read()], dtype=np.uint8)
         cv_array = cv2.imdecode(png_bytes, cv2.CV_LOAD_IMAGE_UNCHANGED)
         return cv_array
 
     @property
-    def mapa_en_grados(self): # Grados en mapa
-        '''
-        Toma los grados en el mapa mediante la conversion de metros a grados 
-        para el tamano de la longitud mediante el calculo del tamano de un 
-        grado de longitud en el centro de la latitud
-        '''
+    def mapa_en_grados(self):
+
         deg_lat = self.metros_lineales_mapa/111319.9
         scale = math.cos(self.centro_lat*math.pi/180)
         deg_lon = deg_lat/scale
@@ -77,18 +66,12 @@ class MapManager(object):
 
     @property
     def metros_lineales_mapa(self): # Metros lineales en el mapa
-        '''
-        Utiliza un numero arbitrario que es el numero de metros en una escala del mapa 
-        de Google maps y se convierte de esa escala al zoom de entrada sobre la base de los metros 
-        lineales de ser cortado por la mitad (por cada aumento de nivel de zoom).
-        '''
+        
         metros_en_mapa = 591657550.500000 / pow(2, self.zoom+3) # (591657550.500000) es la escala del mapa en nivel 1 de zoom 
         return metros_en_mapa
 
     def _window_x_y_to_grid(self, x, y):
-        '''
-        Convierte los graficos x,y en coordenadas de cuadricula cuando (0,0) es el centro de la ventana.
-        '''
+        
         centro_x = centro_y = self.mapa_altitud / 2
         new_x = x - centro_x
         new_y = -1 * (y - centro_y)
@@ -145,11 +128,7 @@ class MapManager(object):
 
 
 class MapGui():   
-    '''
-    Esta clase permite manipular y ejecutar la ventana de tkinter(interfaz grafica) mediante la cual
-    se implementan botones y mensajes. Ademas de convertir la imagen del mapa de Opencv y mostrarla en
-    una ventana de Tkinter.
-    '''
+    
     def __init__(self):
         # Colores preedefinidos para los puntos y lineas 
         self.AMARILLO = cv2.cv.Scalar(0, 300, 400) # segundo o siguientes puntos COLOR AMARILlLO

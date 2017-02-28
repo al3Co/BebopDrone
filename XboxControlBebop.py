@@ -51,7 +51,7 @@ while flagWhile:
                 print event.button, "X PRESSED Land"
                 drone.land()
             elif event.button == 14:
-                print event.button, "Y Taked Picture"
+                print event.button, "Y Photo taken"
                 #drone.takePicture()
             elif event.button == 11:
                 takeoffflag = True

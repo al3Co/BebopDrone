@@ -1,17 +1,17 @@
 
-Código final Aldo Francisco Contreras González
+Final code Aldo Francisco Contreras González
 
-Este código realiza la generación de puntos en el espacio para realizar un recorrido autónomo de precisión con un VANT Parrot Bebop 1 o 2.
+This code performs the generation of points in the space to realize an autonomous route of precision with a VANT Parrot Bebop 1 or 2.
 
-Funcionamiento:
+Functioning:
 
-Conectarse a Internet
-Ejecutar mapa.py.
-Colocar los puntos del vuelo
-Si existe error, click a Delete Waypoints
-Para realizar recorrido, conectarse a la red del bebop, click en Start waypoints with Bebop
+Connect to the Internet
+Run map.py.
+Placing flight points
+If there is an error, click on Delete Waypoints
+To travel, connect to the bebop network, click on Start waypoints with Bebop
 
-Para controlar el Bebop bajo desarrollo de código ver en el siguiente orden:
+To control the Bebop under code development see in the following order:
 	z_1_Takeoff_code.py
 	z_MoveBy.py
 	z_MoveBy2.py

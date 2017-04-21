@@ -18,3 +18,5 @@ To control the Bebop under code development see in the following order:
 	z_MoveSpeed.py
 	z_getData.py
 	z_MoveYAWtimed.py
+
+http://developer.parrot.com/docs/bebop/#general-information

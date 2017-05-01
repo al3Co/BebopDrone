@@ -23,14 +23,14 @@ This code performs the generation of points in the space to realize an autonomou
 
 ## Requirements
 
-###Software
+### Software
 
 - Python 2.7+
 - Numpy
 - Tkinter
 - OpenCV
 
-###Hardware
+### Hardware
 
 - Bebop Drone 1/2 Firmware version: 4.05
 - Computer with WiFi connection

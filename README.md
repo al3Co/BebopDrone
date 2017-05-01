@@ -60,11 +60,25 @@ Land
 drone.land()
 ```
 
+### Get IMU-GPS data
+
+```python
+from core.bebop import *
+drone=Bebop()
+
+while True:
+    drone.update()
+    (roll, pitch, yaw) = drone.angle
+    (lat, lon, alt) = drone.positionGPS
+    print "IMU: ", roll, " ", pitch, " ", yaw
+    print "GPS: ", lat, " ", lon, " ", alt
+
+```
 
 ### PathPlanning
 
 - Connect to the Internet
-- Run map.py.
+- Run map.py
 - Placing flight points
 - If there is a mistake, click on Delete Waypoints
 - To travel, connect to the bebop network, click on Start waypoints with Bebop

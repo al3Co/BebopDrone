@@ -12,11 +12,11 @@ while True:
     (lat, lon, alt)=drone.positionGPS
     (roll, pitch, yaw)=drone.angle
     if lat==500 or lon==500:
-        print "Sin GPS"
+        print "No GPS signal"
         time.sleep(1)
     else:
         f = open(file,'a')
-        print "GPS data: ", lat, lon, alt, "Gyroscope data:", roll, pitch, yaw, "Saved"
+        print "GPS data: ", lat, lon, alt, "Gyroscope data:", roll, pitch, yaw, " Saved"
         f.write(str(lat) +'\t'+ str(lon)+'\t'+ str(alt)+'\t'+ str(roll)+'\t'+ str(pitch)+'\t'+ str(yaw)+'\n')
         f.close()
         time.sleep(0.5)

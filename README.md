@@ -18,7 +18,7 @@ This code performs the generation of points in the space to realize an autonomou
 - MoveBy
 - movePCMD
 - XBOX control
-- IMU data
+- IMU-GPS data
 
 
 ## Requirements
@@ -63,15 +63,26 @@ drone.land()
 ### Get IMU-GPS data
 
 ```python
+
+import math
+import time
 from core.bebop import *
 drone=Bebop()
+file = time.strftime("%Y%m%d-%H%M%S")
 
 while True:
     drone.update()
-    (roll, pitch, yaw) = drone.angle
-    (lat, lon, alt) = drone.positionGPS
-    print "IMU: ", roll, " ", pitch, " ", yaw
-    print "GPS: ", lat, " ", lon, " ", alt
+    (lat, lon, alt)=drone.positionGPS
+    (roll, pitch, yaw)=drone.angle
+    if lat==500 or lon==500:
+        print "No GPS signal"
+        time.sleep(1)
+    else:
+        f = open(file,'a')
+        print "GPS data: ", lat, lon, alt, "Gyroscope data:", roll, pitch, yaw, " Saved"
+        f.write(str(lat) +'\t'+ str(lon)+'\t'+ str(alt)+'\t'+ str(roll)+'\t'+ str(pitch)+'\t'+ str(yaw)+'\n')
+        f.close()
+        time.sleep(0.5)
 
 ```
 
@@ -85,7 +96,7 @@ while True:
 
 ### To control the Bebop under code development
 
-In the following order:
+For easier understanding, in the following order:
 - z_1_Takeoff_code.py
 - z_MoveBy.py
 - z_MoveBy2.py
@@ -96,9 +107,9 @@ In the following order:
 http://developer.parrot.com/docs/bebop/#general-information
 
 ## Communication
-- If you found a bug, please open an issue. :bow:
-- Also, if you have a feature request, please open an issue. :thumbsup:
-- If you want to contribute, submit a pull request.:muscle:
+- If you found a bug, please open an issue
+- Also, if you have a feature request, please open an issue
+- If you want to contribute, submit a pull request
 
 ## License
 Core data and Copyright:

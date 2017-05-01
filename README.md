@@ -32,7 +32,7 @@ This code performs the generation of points in the space to realize an autonomou
 
 ### Hardware
 
-- Bebop Drone 1/2 Firmware version: 4.05
+- Bebop Drone 1-2 Firmware version: 4.05
 - Computer with WiFi connection
 
 ## Documentation
@@ -66,7 +66,7 @@ drone.land()
 - Connect to the Internet
 - Run map.py.
 - Placing flight points
-- If there is an error, click on Delete Waypoints
+- If there is a mistake, click on Delete Waypoints
 - To travel, connect to the bebop network, click on Start waypoints with Bebop
 
 ### To control the Bebop under code development
@@ -87,5 +87,5 @@ http://developer.parrot.com/docs/bebop/#general-information
 - If you want to contribute, submit a pull request.:muscle:
 
 ## License
-Core data:
+Core data and Copyright:
 https://github.com/robotika/katarina

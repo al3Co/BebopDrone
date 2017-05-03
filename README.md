@@ -46,7 +46,7 @@ http://developer.parrot.com/docs/bebop/#general-information
 
 ```python
 from core.bebop import *
-drone=Bebop()
+drone = Bebop()
 
 """
 Takeoff (1m)
@@ -64,10 +64,9 @@ drone.land()
 
 ```python
 
-import math
 import time
 from core.bebop import *
-drone=Bebop()
+drone = Bebop()
 file = time.strftime("%Y%m%d-%H%M%S")
 
 while True:

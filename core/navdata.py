@@ -120,9 +120,9 @@ def parseData( data, robot, verbose=False ):
                         #Event_NOTAVAILABLE = 3,///< Command moveBy is not available ; command moveBy ignored
                         #Event_INTERRUPTED = 4, ///< Command moveBy interrupted
             else:
+                print "Command porject, commandClass, commandId: ", commandProject, commandClass, commandId
                 if verbose:
                     print "UNKNOWN", printHex( data[:frameSize] )
-                    print "Command porject, commandClass, commandId: ", commandProject, commandClass, commandId
                     assert False
         else:
             print "UNKNOWN Project", commandProject
@@ -202,10 +202,9 @@ def parseData( data, robot, verbose=False ):
 
         ######
         elif (commandProject, commandClass) == (1,0):
-            dX,dY,dZ,dPsi,Event,error = struct.unpack("ffffdd", data[11:11+3*4])
-            robot.moveByEnd =(dX,dY,dZ,dPsi,Event,error)
-            if verbose:
-                print "MoveByEnd moved: ", dX, dY, dZ, "Angle moved: ", dPsi, "Event: ", Event, "error", error
+            print "Unknown Command ID:", commandProject, commandClass, commandId, ",",
+                printHex( data[:frameSize] )
+            #print "MoveByEnd moved: ", dX, dY, dZ, "Angle moved: ", dPsi, "Event: ", Event, "error", error
                 #Event_ERROR_OK = 0,    ///< No Error ; The relative displacement
                 #Event_UNKNOWN = 1,     ///< Unknown generic error
                 #Event_BUSY = 2,        ///< The Device is busy ; command moveBy ignored

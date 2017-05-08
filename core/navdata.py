@@ -199,10 +199,9 @@ def parseData( data, robot, verbose=False ):
                 if verbose:
                     print "Calibration", commandId,
                     printHex( data[:frameSize] )
-        ######
-        #elif (commandProject, commandClass) == (1,0):
-        #   print "Unknown Command ID:",
-        #       printHex( data[:frameSize] )
+        elif (commandProject, commandClass) == (1,0):
+            print "Unknown Command ID:",
+            printHex( data[:frameSize] )
             #print "MoveByEnd moved: ", dX, dY, dZ, "Angle moved: ", dPsi, "Event: ", Event, "error", error
                 #Event_ERROR_OK = 0,    ///< No Error ; The relative displacement
                 #Event_UNKNOWN = 1,     ///< Unknown generic error

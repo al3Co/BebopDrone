@@ -12,17 +12,17 @@ import inspect
 from core.bebop import *
 drone=Bebop()
 
-dX = 0.5 # 0.5 mts Forward
+dX = 0 # 0.5 mts Forward
 dY = 0
 dZ = 0
-dPsi = 0
+dPsi = math.py/4
 
 def main():
     signal.signal(signal.SIGINT, signal_handler)
     try:
         drone.takeoff()
         time.sleep(1)
-        for i in range (0,2):
+        for i in range (0,4):
             drone.moveBy( dX, dY, dZ, dPsi)
             drone.hover()
             time.sleep(1)

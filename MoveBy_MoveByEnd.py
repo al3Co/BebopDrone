@@ -15,7 +15,7 @@ drone=Bebop()
 dX = 0 # 0.5 mts Forward
 dY = 0
 dZ = 0
-dPsi = math.py/4
+dPsi = math.pi/4
 
 def main():
     signal.signal(signal.SIGINT, signal_handler)

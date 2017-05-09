@@ -57,7 +57,7 @@ https://github.com/Parrot-Developers/arsdk-xml/blob/master/xml/ardrone3.xml
 - Open the Terminal or Run on Python software
 - Run the code 1_Takeoff.py in Python.
 
-$ Python 1_Takeoff.py
+$ python 1_Takeoff.py
 
 
 ### Takeoff

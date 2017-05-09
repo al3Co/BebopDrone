@@ -112,7 +112,7 @@ def parseData( data, robot, verbose=False ):
             elif (commandClass, commandId) == (34,0): #Change this with Mario's tests
                 print "MoveByEnd ok, Unknown, busy, not available or interrupted"
                 try:
-                    dX, dY, dZ, dPsi, Event = struct.unpack("ffffI", data[11:11+3*4])
+                    dX, dY, dZ, dPsi, Event = struct.unpack("ffffI", data[11:11+5*4])
                     robot.moveByEnd =(dX,dY,dZ,dPsi,Event)
                     #if verbose:
                     print "MoveByEnd moved: ", dX, dY, dZ, "Angle moved: ", dPsi, "Event: ", Event
@@ -243,9 +243,45 @@ def parseData( data, robot, verbose=False ):
                 if verbose:
                     print "MaxTilt:", struct.unpack("fff", data[11:11+3*4])
             elif commandId == 2:
-                # ARCOMMANDS_ID_ARDRONE3_PILOTINGSETTINGSSTATE_CMD_ABSOLUTCONTROLCHANGED,
+                # ARCOMMANDS_ID_ARDRONE3_PILOTINGSETTINGSSTATE_CMD_ABSOLUTCONTROLCHANGED = 2,
                 if verbose:
                     print "AbsoluteControl:", struct.unpack("B", data[11:12])[0]
+            elif commandId == 3:
+                # ARCOMMANDS_ID_ARDRONE3_PILOTINGSETTINGSSTATE_CMD_MaxDistanceChanged = 3,
+                if verbose:
+                    print "MaxDistance:", struct.unpack("fff", data[11:11+3*4])
+            elif commandId == 4:
+                # ARCOMMANDS_ID_ARDRONE3_PILOTINGSETTINGSSTATE_CMD_NoFlyOverMaxDistanceChanged = 4,
+                if verbose:
+                    print "NoFlyOverMaxDistance:", struct.unpack("B", data[11:12])[0]
+            elif commandId == 5:
+                # ARCOMMANDS_ID_ARDRONE3_PILOTINGSETTINGSSTATE_CMD_AutonomousFlightMaxHorizontalSpeed = 5,
+                if verbose:
+                    print "AutonomousFlightMaxHorizontalSpeed [m/s]:", struct.unpack("f", data[11:12])[0]
+            elif commandId == 6:
+                # ARCOMMANDS_ID_ARDRONE3_PILOTINGSETTINGSSTATE_CMD_AutonomousFlightMaxVerticalSpeed = 6,
+                if verbose:
+                    print "AutonomousFlightMaxVerticalSpeed [m/s]:", struct.unpack("f", data[11:12])[0]
+            elif commandId == 7:
+                # ARCOMMANDS_ID_ARDRONE3_PILOTINGSETTINGSSTATE_CMD_AutonomousFlightMaxHorizontalAcceleration = 7,
+                if verbose:
+                    print "AutonomousFlightMaxHorizontalAcceleration [m/s2]:", struct.unpack("f", data[11:12])[0]
+            elif commandId == 8:
+                # ARCOMMANDS_ID_ARDRONE3_PILOTINGSETTINGSSTATE_CMD_AutonomousFlightMaxVerticalAcceleration = 8,
+                if verbose:
+                    print "AutonomousFlightMaxVerticalAcceleration [m/s2]:", struct.unpack("f", data[11:12])[0]
+            elif commandId == 9:
+                # ARCOMMANDS_ID_ARDRONE3_PILOTINGSETTINGSSTATE_CMD_AutonomousFlightMaxRotationSpeed = 9,
+                if verbose:
+                    print "AutonomousFlightMaxRotationSpeed [deg/s]:", struct.unpack("f", data[11:12])[0]
+            elif commandId == 10:
+                # ARCOMMANDS_ID_ARDRONE3_PILOTINGSETTINGSSTATE_CMD_BankedTurnChanged = 10,
+                if verbose:
+                    print "BankedTurnChanged state (1 enable, 0 disable):", struct.unpack("B", data[11:12])[0]
+            elif commandId == 11:
+                # ARCOMMANDS_ID_ARDRONE3_PILOTINGSETTINGSSTATE_CMD_MinAltitudeChanged = 11,
+                if verbose:
+                    print "MinAltitude:", struct.unpack("fff", data[11:11+3*4])
             else:
                 print "Unknown or new version of Piloting Settings State", commandId, ",",
                 printHex( data[:frameSize] )

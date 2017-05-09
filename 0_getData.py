@@ -1,7 +1,6 @@
 """
     Create a file with the GPS and Gyroscope data forever each 0.5 secs
 """
-import math
 import time
 from core.bebop import *
 drone=Bebop()

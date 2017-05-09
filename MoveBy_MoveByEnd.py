@@ -12,7 +12,7 @@ import inspect
 from core.bebop import *
 drone=Bebop()
 
-dX = 0 # 0.5 mts Forward
+dX = 0
 dY = 0
 dZ = 0
 dPsi = math.pi/4

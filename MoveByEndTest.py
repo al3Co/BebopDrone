@@ -41,7 +41,7 @@ def testFly():
     signal.signal(signal.SIGINT, signal_handler)
     try:
         drone.takeoff()
-        time.sleep(1)
+        time.sleep(2)
         drone.hover()
         for i in range (0,4):
             time.sleep(3)

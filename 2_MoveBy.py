@@ -3,7 +3,7 @@
     Starting for usage at the computer
     Do not delete the except Typer error. GPS data error, added when include GPS
 """
-import math
+
 import time
 import sys
 import signal

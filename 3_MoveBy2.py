@@ -21,10 +21,10 @@ def main():
     signal.signal(signal.SIGINT, signal_handler)
     try:
         drone.takeoff()
-        time.sleep(1)
+        time.sleep(2)
         drone.moveBy( dX, dY, dZ, dPsi)
+        time.sleep(3)
         drone.hover()
-        time.sleep(1)
         drone.land()
         sys.exit(0)
     except (TypeError):

@@ -14,11 +14,13 @@ This code performs the generation of points in the space to realize an autonomou
 
 ## Features
 
-- Path planning with map waypoints
-- MoveBy
-- movePCMD
-- XBOX control
-- IMU-GPS data
+
+- MoveBy        (Move the drone to a relative position)
+- movePCMD      (Move the drone with timed movements roll-pitch-yaw)
+- moveTo        (Move the drone to a specified GPS location)
+- XBOX control  (Move the drone with XBOX control)
+- get IMU-GPS data
+- path planning with map waypoints without MAVLink
 
 
 ## Requirements

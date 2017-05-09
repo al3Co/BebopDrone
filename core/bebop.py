@@ -234,16 +234,11 @@ class Bebop:
     def moveBy( self, dX, dY, dZ, dPsi):
         self.update( cmd=moveByCmd( dX, dY, dZ, dPsi) )
     
-    """
-        Added by Aldo Contreras
-        Draft: this command is not implemented yet by the firmware Move the drone to a relative position and rotate heading by a given angle The frame is horizontal and relative to the current drone orientation: - X is front - Y is right - Z is down The movement settings of the device are those set for the autonomous flight.
-        
-        dX Wanted displacement along the front axis [m]
-        dY Wanted displacement along the right axis [m]
-        dZ Wanted displacement along the down axis [m]
-        dPsi Wanted rotation of heading [rad]
-        
-    """
+    def moveTo( self, lat, lon, altitude):
+        self.update( cmd=moveToCmd( lat, lon, altitude) )
+    
+    def moveToCancel( self ):
+        self.update( cmd=cancelMoveToCmd() )
 
     def wait( self, duration ):
         print "Wait", duration

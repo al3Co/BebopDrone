@@ -106,12 +106,12 @@ while True:
 ### To control the Bebop under code development
 
 For easier understanding, in the following order:
-- z_1_Takeoff_code.py
-- z_MoveBy.py
-- z_MoveBy2.py
-- z_MoveSpeed.py
-- z_getData.py
-- z_MoveYAWtimed.py
+- 0_getData.py
+- 1_Takeoff_code.py
+- 2_MoveBy.py
+- 3_MoveBy2.py
+- 4_MoveSpeed.py
+- 5_MoveYAWtimed.py
 
 http://developer.parrot.com/docs/bebop/#general-information
 

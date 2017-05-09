@@ -17,15 +17,37 @@ dY = 0
 dZ = 0
 dPsi = math.pi/4
 
-def main():
+def testFly2():
+    try:
+        drone.takeoff()
+        drone.wait( 1.0 )
+        drone.hover()
+        for i in range (0,4):
+            drone.wait( 3.0 )
+            drone.moveBy( dX, dY, dZ, dPsi)
+        drone.wait( 1.0 )
+        drone.hover()
+        drone.land()
+        sys.exit(0)
+    except ManualControlException, e:
+        print
+        print "ManualControlException"
+        if robot.flyingState is None or robot.flyingState == 1: # taking off
+            # unfortunately it is not possible to land during takeoff for ARDrone3 :(
+            robot.emergency()
+        robot.land()
+
+def testFly():
     signal.signal(signal.SIGINT, signal_handler)
     try:
         drone.takeoff()
         time.sleep(1)
+        drone.hover()
         for i in range (0,4):
+            time.sleep(3)
             drone.moveBy( dX, dY, dZ, dPsi)
-            drone.hover()
-            time.sleep(1)
+        time.sleep(1)
+        drone.hover()
         drone.land()
         sys.exit(0)
     except (TypeError):
@@ -43,4 +65,4 @@ def signal_handler(signal, frame):
 
 
 if __name__ == "__main__":
-    main()
+    testFly()

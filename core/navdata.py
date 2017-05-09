@@ -109,18 +109,19 @@ def parseData( data, robot, verbose=False ):
                 if verbose:
                     print "CameraState Tilt/Pan", tilt, pan
             
-            elif (commandClass, commandId) == (4,0): #Change this with Mario's tests
-                dX,dY,dZ,dPsi,Event,error = struct.unpack("ffffdd", data[11:11+3*4])
-                robot.moveByEnd =(dX,dY,dZ,dPsi,Event,error)
-                if verbose:
-                    print "MoveByEnd moved: ", dX, dY, dZ, "Angle moved: ", dPsi, "Event: ", Event, "error", error
-                        #Event_ERROR_OK = 0,    ///< No Error ; The relative displacement
-                        #Event_UNKNOWN = 1,     ///< Unknown generic error
-                        #Event_BUSY = 2,        ///< The Device is busy ; command moveBy ignored
-                        #Event_NOTAVAILABLE = 3,///< Command moveBy is not available ; command moveBy ignored
-                        #Event_INTERRUPTED = 4, ///< Command moveBy interrupted
+            elif (commandClass, commandId) == (34,0): #Change this with Mario's tests
+                print "MoveByEnd ok, Unknown, busy, not available or interrupted"
+                try:
+                    dX, dY, dZ, dPsi, Event = struct.unpack("ffffI", data[11:11+3*4])
+                    robot.moveByEnd =(dX,dY,dZ,dPsi,Event)
+                    #if verbose:
+                    print "MoveByEnd moved: ", dX, dY, dZ, "Angle moved: ", dPsi, "Event: ", Event
+                    Events = ["OK. Relative displacement done", "UNKNOWN generic error", "BUSY, command moveBy ignored", "NOTAVAILABLE, command moveBy ignored", "NOTAVAILABLE, command moveBy ignored", "INTERRUPTED"]
+                    print "ALERT Event", Event, Events[Event]
+                except Exception as e:
+                    print "Error trying to unpack moveByEnd struct, error:", e
             else:
-                print "Command porject, commandClass, commandId: ", commandProject, commandClass, commandId
+                print "Command project, commandClass, commandId: ", commandProject, commandClass, commandId
                 if verbose:
                     print "UNKNOWN", printHex( data[:frameSize] )
                     assert False
@@ -202,12 +203,6 @@ def parseData( data, robot, verbose=False ):
         elif (commandProject, commandClass) == (1,0):
             print "Unknown Command ID:",
             printHex( data[:frameSize] )
-            #print "MoveByEnd moved: ", dX, dY, dZ, "Angle moved: ", dPsi, "Event: ", Event, "error", error
-                #Event_ERROR_OK = 0,    ///< No Error ; The relative displacement
-                #Event_UNKNOWN = 1,     ///< Unknown generic error
-                #Event_BUSY = 2,        ///< The Device is busy ; command moveBy ignored
-                #Event_NOTAVAILABLE = 3,///< Command moveBy is not available ; command moveBy ignored
-                #Event_INTERRUPTED = 4, ///< Command moveBy interrupted
 
         elif (commandProject, commandClass) == (1,4):
             # ARCOMMANDS_ID_ARDRONE3_CLASS_PILOTINGSTATE = 4,
@@ -435,3 +430,11 @@ if __name__ == "__main__":
 
 # vim: expandtab sw=4 ts=4 
 
+"""
+title="Relative move ended"
+desc="Relative move ended.\n
+Informs about the move that the drone managed to do and why it stopped."
+support="0901:3.3.0;090c:3.3.0"
+triggered="when the drone reaches its target or when it is interrupted by another
+[moveBy command](#1-0-7) or when an error occurs."/>
+"""

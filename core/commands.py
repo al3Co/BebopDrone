@@ -163,23 +163,28 @@ def moveByCmd( dX, dY, dZ, dPsi):
     #       - Z is down
     #print ('Moving')
     return struct.pack("<BBHffff", 1, 0, 7, dX, dY, dZ, dPsi)
-"""
-    Move the drone to a relative position and rotate heading by a given angle
-    The frame is horizontal and relative to the current drone orientation:
-    X is front
-    Y is right
-    Z is down
-    The movement settings of the device are those set for the autonomous flight.
-    dX (float): Wanted displacement along the front axis [m]
-    dY (float): Wanted displacement along the right axis [m]
-    dZ (float): Wanted displacement along the down axis [m]
-    dPsi (float): Wanted rotation of heading [rad]
-    Result:
-    The drone will move of the given offsets.
-    Then, event MoveByEnd is triggered.
-    If you send a second command MoveBy, the drone will trigger a MoveByEnd with the offsets it managed to do before this command and the value of error set to interrupted.
-"""
 
+# NOT TESTED
+def moveToCmd( lat, lon, altitude):
+    # ARCOMMANDS_ID_PROJECT_ARDRONE3 = 1,
+    # ARCOMMANDS_ID_ARDRONE3_CLASS_PILOTING = 0,
+    # ARCOMMANDS_ID_ARDRONE3_PILOTING_CMD_MOVETO= 10,
+    # Move the drone to a specified location
+    # Latitude of the location (in degrees) to reach (Double)
+    # Longitude of the location (in degrees) to reach (Double)
+    # Altitude above sea level (in m) to reach (Double)
+    # Orientation mode of the move to (enum) [NONE, TO_TARGET, HEADING_START, HEADING_DURING]
+    # Heading (relative to the North in degrees).This value is only used if the orientation mode is HEADING_START or HEADING_DURING
+    mode = 0
+    heading = 0.0
+    return struct.pack("<BBHfffIf", 1, 0, 10, lat, lon, altitude, mode, heading)
+
+def cancelMoveToCmd():
+    # ARCOMMANDS_ID_PROJECT_ARDRONE3 = 1,
+    # ARCOMMANDS_ID_ARDRONE3_CLASS_PILOTING = 0,
+    # ARCOMMANDS_ID_ARDRONE3_PILOTING_CMD_MOVETO= 11,
+    # Cancel the current moveTo. If there is no current moveTo, this command has no effect.
+    return struct.pack("<BBH", 1, 0, 11)
 
 def packData( payload, ackRequest=False ):
     frameType = 2

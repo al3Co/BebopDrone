@@ -120,6 +120,7 @@ def parseData( data, robot, verbose=False ):
                     print "ALERT Event", Event, Events[Event]
                 except Exception as e:
                     print "Error trying to unpack moveByEnd struct, error:", e
+                    pass
             else:
                 print "Command project, commandClass, commandId: ", commandProject, commandClass, commandId
                 if verbose:
@@ -228,6 +229,18 @@ def parseData( data, robot, verbose=False ):
                 reasons = ["userRequest", "connectionLost", "lowBattery", "finished", "stopped", "disabled", "enabled"]
                 print "NavigateHomeStateChanged", state, states[state], reasons[reason]
                 robot.navigateHomeState = state
+###
+            elif commandId == 12:
+                # ARCOMMANDS_ID_ARDRONE3_PILOTINGSTATE_CMD_moveToChanged]
+                try:
+                    lat, lon, alt, or_mode, heading, state = struct.unpack("dddIfI", data[11:11+6*4])
+                    states = ["Running", "Done", "Canceled", "Error"]
+                    print "MoveTo command, changed Status:", stat, states[state]
+                    robot.moveToState = state
+                except Exception as e:
+                    print "Error trying to unpack moveTo struct, error:", e
+                    pass
+
             else:
                 print "Unknown or new version of Piloting State. Command ID:", commandId, ",",
                 printHex( data[:frameSize] )

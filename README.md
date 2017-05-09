@@ -38,9 +38,15 @@ This code performs the generation of points in the space to realize an autonomou
 ## Documentation
 
 Docs:
+
 http://developer.parrot.com/docs/bebop/#general-information
 
+Navdata:
+
 https://github.com/Parrot-Developers/arsdk-xml
+
+https://github.com/Parrot-Developers/arsdk-xml/blob/master/xml/ardrone3.xml
+
 
 ## Usage
 

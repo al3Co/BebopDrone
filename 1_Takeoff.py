@@ -1,23 +1,13 @@
 #!/usr/bin/python
 """
-  Starting for usage at the computer
-  
+  Takeoff for 4 secs
 """
 import time
 from core.bebop import *
 drone=Bebop()
 
-"""
-    Starting to Fly (1m)
-"""
+#Starting to Fly (1m)
 drone.takeoff()
-"""
-    Flying Movements
-"""
+time.sleep(4)
 drone.hover()
-print "hovering"
-time.sleep(2)
-"""
-    Land
-"""
 drone.land()

@@ -55,18 +55,14 @@ https://github.com/Parrot-Developers/arsdk-xml/blob/master/xml/ardrone3.xml
 ### Takeoff
 
 ```python
+import time
 from core.bebop import *
-drone = Bebop()
+drone=Bebop()
 
-"""
-Takeoff (1m)
-"""
+#Starting to Fly (1m)
 drone.takeoff()
+time.sleep(4)
 drone.hover()
-time.sleep(2)
-"""
-Land
-"""
 drone.land()
 ```
 

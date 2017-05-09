@@ -39,6 +39,7 @@ This code performs the generation of points in the space to realize an autonomou
 
 Docs:
 http://developer.parrot.com/docs/bebop/#general-information
+https://github.com/Parrot-Developers/arsdk-xml
 
 ## Usage
 

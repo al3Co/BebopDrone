@@ -56,6 +56,7 @@ class Bebop:
         self.angle = (0,0,0)
         self.speed = (0,0,0)
         self.positionGPS = None
+        self.moveByEnd = None
         self.cameraTilt, self.cameraPan = 0,0
         self.lastImageResult = None
         self.navigateHomeState = None

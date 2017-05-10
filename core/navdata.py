@@ -113,7 +113,7 @@ def parseData( data, robot, verbose=False ):
                 print "MoveByEnd ok, Unknown, busy, not available or interrupted"
                 try:
                     dX, dY, dZ, dPsi, Event = struct.unpack("ffffI", data[11:11+5*4])
-                    robot.moveByEnd =(dX,dY,dZ,dPsi,Event)
+                    robot.moveByEnd = (dX, dY, dZ, dPsi, Event)
                     #if verbose:
                     print "MoveByEnd moved: ", dX, dY, dZ, "Angle moved: ", dPsi, "Event: ", Event
                     Events = ["OK. Relative displacement done", "UNKNOWN generic error", "BUSY, command moveBy ignored", "NOTAVAILABLE, command moveBy ignored", "NOTAVAILABLE, command moveBy ignored", "INTERRUPTED"]
@@ -231,7 +231,7 @@ def parseData( data, robot, verbose=False ):
                 robot.navigateHomeState = state
 ###
             elif commandId == 12:
-                # ARCOMMANDS_ID_ARDRONE3_PILOTINGSTATE_CMD_moveToChanged]
+                # ARCOMMANDS_ID_ARDRONE3_PILOTINGSTATE_CMD_moveToChanged
                 try:
                     lat, lon, alt, or_mode, heading, state = struct.unpack("dddIfI", data[11:11+6*4])
                     states = ["Running", "Done", "Canceled", "Error"]

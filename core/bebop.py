@@ -164,7 +164,7 @@ class Bebop:
         self.update( videoRecordingCmd( on=True ) )
         print "Battery:", self.battery
         for i in xrange(10):
-            print i,
+            #print i,
             self.update( cmd=None )
         print
         print "Taking off ...",

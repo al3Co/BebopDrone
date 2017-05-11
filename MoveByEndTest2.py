@@ -22,10 +22,10 @@ def moveByFunction():
         drone.wait( 1.0 )
         drone.hover()
         if drone.flyingState == 3: # Flying
-            for i in range (0,4):
+            for i in range (0,4): #Try to rotate i times
                 print "Movement: ", i
-                drone.moveBy( dX, dY, dZ, dPsi)
-                moveByControl()
+                drone.moveBy( dX, dY, dZ, dPsi) #move to a relative position
+                moveByControl() # Stops the movements
         drone.hover()
         drone.wait( 1.0 )
         drone.land()
@@ -38,20 +38,20 @@ def moveByFunction():
         robot.land()
 
 def moveByControl():
-	while movDone:
+	while movDone: # while Event != OK or != Interrupted, keep moving
 		drone.update()
-		try:
+		try: #get and print drone data
 			(dX, dY, dZ, dPsi, Event) = drone.moveByEnd
 			print "Drone moved [mts, rad]:", dX, dY, dZ, dPsi
             Events = ["OK. Relative displacement done", "UNKNOWN", "BUSY", "NOTAVAILABLE", "INTERRUPTED"]
             print "Move by event", Event, Events[Event]
-            if Event == 0 or Event == 5: #arrived or Interrupted
+            if Event == 0 or Event == 5: # Arrived or Interrupted
                 movDone = False
-		except Exception, e:
+		except Exception, e: # catch error
 			print "Error getting data from drone, error:", e
 			pass
 	movDone = True
-	drone.wait( 4.0 )
+	drone.wait( 4.0 ) #waits () secs after arrive to its position
 
 if __name__ == "__main__":
     moveByFunction()

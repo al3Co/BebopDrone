@@ -110,7 +110,7 @@ def parseData( data, robot, verbose=False ):
                     print "CameraState Tilt/Pan", tilt, pan
             
             elif (commandClass, commandId) == (34,0): #Change this with Mario's tests
-                print "MoveByEnd ok, Unknown, busy, not available or interrupted"
+                print "MoveByEnd ok, Unknown, Busy, Not available or Interrupted"
                 try:
                     dX, dY, dZ, dPsi, Event = struct.unpack("ffffI", data[11:11+5*4])
                     robot.moveByEnd = (dX, dY, dZ, dPsi, Event)

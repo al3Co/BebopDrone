@@ -9,14 +9,13 @@ from core.bebop import *
 
 drone=Bebop()
 
-# Distance to move in [m] and dPsi [degrees]
+# Distance to move in [m] and dPsi [rad]
 dX = 0
 dY = 0
 dZ = 0
 dPsi = math.pi/2
 
-# Flag to know when movements are done
-movDone = True
+movDone = True # Flag to know when movements are done
 
 def moveByFunction():
     try:

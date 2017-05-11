@@ -22,11 +22,10 @@ def moveByFunction():
         drone.takeoff()
         drone.wait( 1.0 )
         drone.hover()
-        if drone.flyingState == 3:  # Flying
-            for i in range (0,4):   # Try to rotate i times
-                print "Movement: ", i
-                drone.moveBy( dX, dY, dZ, dPsi) # Command to move to a relative position
-                moveByControl() # Stops the movements
+        for i in range (0,4):   # Try to rotate i times
+            print "Movement: ", i
+            drone.moveBy( dX, dY, dZ, dPsi) # Command to move to a relative position
+            moveByControl() # Stops the movements
         drone.hover()
         drone.wait( 1.0 )
         drone.land()

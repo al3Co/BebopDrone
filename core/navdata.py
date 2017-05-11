@@ -114,10 +114,10 @@ def parseData( data, robot, verbose=False ):
                 try:
                     dX, dY, dZ, dPsi, Event = struct.unpack("ffffI", data[11:11+5*4])
                     robot.moveByEnd = (dX, dY, dZ, dPsi, Event)
-                    #if verbose:
-                    print "MoveByEnd moved: ", dX, dY, dZ, "Angle moved: ", dPsi, "Event: ", Event
-                    Events = ["OK. Relative displacement done", "UNKNOWN generic error", "BUSY, command moveBy ignored", "NOTAVAILABLE, command moveBy ignored", "NOTAVAILABLE, command moveBy ignored", "INTERRUPTED"]
-                    print "ALERT Event", Event, Events[Event]
+                    if verbose:
+                        print "MoveByEnd moved: ", dX, dY, dZ, "Angle moved: ", dPsi, "Event: ", Event
+                        Events = ["OK. Relative displacement done", "UNKNOWN generic error", "BUSY, command ignored", "NOTAVAILABLE, command ignored", "INTERRUPTED"]
+                        print "ALERT Event", Event, Events[Event]
                 except Exception as e:
                     print "Error trying to unpack moveByEnd struct, error:", e
                     pass

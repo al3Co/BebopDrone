@@ -9,11 +9,13 @@ from core.bebop import *
 
 drone=Bebop()
 
+# Distance to move in [m] and dPsi [degrees]
 dX = 0
 dY = 0
 dZ = 0
 dPsi = math.pi/2
 
+# Flag to know when movements are done
 movDone = True
 
 def moveByFunction():
@@ -22,9 +24,9 @@ def moveByFunction():
         drone.wait( 1.0 )
         drone.hover()
         if drone.flyingState == 3: # Flying
-            for i in range (0,4): #Try to rotate i times
+            for i in range (0,4): # Try to rotate i times
                 print "Movement: ", i
-                drone.moveBy( dX, dY, dZ, dPsi) #move to a relative position
+                drone.moveBy( dX, dY, dZ, dPsi) # Command to move to a relative position
                 moveByControl() # Stops the movements
         drone.hover()
         drone.wait( 1.0 )
@@ -33,25 +35,25 @@ def moveByFunction():
     except ManualControlException, e:
         print
         print "ManualControlException"
-        if robot.flyingState is None or robot.flyingState == 1: # taking off
+        if robot.flyingState is None or robot.flyingState == 1: # Taking off
             robot.emergency()
         robot.land()
 
 def moveByControl():
-	while movDone: # while Event != OK or != Interrupted, keep moving
+	while movDone: # While Event != OK or != Interrupted, keep moving
 		drone.update()
-		try: #get and print drone data
+		try: # Get and print drone data
 			(dX, dY, dZ, dPsi, Event) = drone.moveByEnd
 			print "Drone moved [mts, rad]:", dX, dY, dZ, dPsi
             Events = ["OK. Relative displacement done", "UNKNOWN", "BUSY", "NOTAVAILABLE", "INTERRUPTED"]
             print "Move by event", Event, Events[Event]
             if Event == 0 or Event == 5: # Arrived or Interrupted
                 movDone = False
-		except Exception, e: # catch error
+		except Exception, e: # Catch error
 			print "Error getting data from drone, error:", e
 			pass
 	movDone = True
-	drone.wait( 4.0 ) #waits () secs after arrive to its position
+	drone.wait( 4.0 ) # Waits () secs after arrive to its position
 
 if __name__ == "__main__":
     moveByFunction()

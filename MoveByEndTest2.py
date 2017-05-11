@@ -42,8 +42,8 @@ def moveByControl():
 	while movDone: # While Event != OK or != Interrupted, keep moving
 		drone.update()
 		try:  # Get and print drone data
-			(dX, dY, dZ, dPsi, Event) = drone.moveByEnd
-			print "Drone moved [mts, rad]:", dX, dY, dZ, dPsi
+            (dX, dY, dZ, dPsi, Event) = drone.moveByEnd
+            print "Drone moved [mts, rad]:", dX, dY, dZ, dPsi
             Events = ["OK. Relative displacement done", "UNKNOWN", "BUSY", "NOTAVAILABLE", "INTERRUPTED"]
             print "Move by event", Event, Events[Event]
             if Event == 0 or Event == 5:    # Arrived or Interrupted
@@ -56,3 +56,4 @@ def moveByControl():
 
 if __name__ == "__main__":
     moveByFunction()
+

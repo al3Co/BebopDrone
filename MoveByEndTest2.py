@@ -23,9 +23,14 @@ def moveByFunction():
         drone.hover()
         if drone.flyingState == 3: # Flying
         	for i in range (0,4):
+<<<<<<< HEAD
         		print "Movement: ", i
             	drone.moveBy( dX, dY, dZ, dPsi)
             	moveByControl()
+=======
+            		drone.moveBy( dX, dY, dZ, dPsi)
+            		moveByControl()
+>>>>>>> origin/master
         drone.hover()
         drone.wait( 1.0 )
         drone.land()

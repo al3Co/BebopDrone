@@ -23,6 +23,7 @@ def moveByFunction():
         drone.hover()
         if drone.flyingState == 3: # Flying
         	for i in range (0,4):
+        		print "Movement: ", i
             	drone.moveBy( dX, dY, dZ, dPsi)
             	moveByControl()
         drone.hover()
@@ -41,9 +42,8 @@ def moveByControl():
 		drone.update()
 		try:
 			(dX, dY, dZ, dPsi, Event) = drone.moveByEnd
-			if Event == 0:
-				print "Drone moved [mts, rad]:", dX, dY, dZ, dPsi
-				movDone = False
+			print "Drone moved [mts, rad]:", dX, dY, dZ, dPsi
+			movDone = False
 		except Exception, e:
 			#print "Some error:", e
 			pass

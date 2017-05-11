@@ -48,12 +48,12 @@ def moveByControl():
 			Events = ["OK. Relative displacement done", "UNKNOWN", "BUSY", "NOTAVAILABLE", "INTERRUPTED"]
 			print "Move by event", Event, Events[Event]
 			if Event == 0 or Event == 5:    # Arrived or Interrupted
-            	movDone = False
-        except Exception, e:    # Catch error
-            print "Error getting data from drone, error:", e
-            pass
-	movDone = True
-	drone.wait( 4.0 )  # Waits () secs after arrive to its position
+                                movDone = False
+                except Exception, e:    # Catch error
+                        print "Error getting data from drone, error:", e
+                        pass
+        movDone = True
+        drone.wait( 4.0 )  # Waits () secs after arrive to its position
 
 if __name__ == "__main__":
     moveByFunction()

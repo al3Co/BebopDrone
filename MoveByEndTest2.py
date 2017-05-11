@@ -15,15 +15,15 @@ dY = 0
 dZ = 0
 dPsi = math.pi/2
 
-movDone = True # Flag to know when movements are done
+movDone = True  # Flag to know when movements are done
 
 def moveByFunction():
     try:
         drone.takeoff()
         drone.wait( 1.0 )
         drone.hover()
-        if drone.flyingState == 3: # Flying
-            for i in range (0,4): # Try to rotate i times
+        if drone.flyingState == 3:  # Flying
+            for i in range (0,4):   # Try to rotate i times
                 print "Movement: ", i
                 drone.moveBy( dX, dY, dZ, dPsi) # Command to move to a relative position
                 moveByControl() # Stops the movements
@@ -41,18 +41,18 @@ def moveByFunction():
 def moveByControl():
 	while movDone: # While Event != OK or != Interrupted, keep moving
 		drone.update()
-		try: # Get and print drone data
+		try:  # Get and print drone data
 			(dX, dY, dZ, dPsi, Event) = drone.moveByEnd
 			print "Drone moved [mts, rad]:", dX, dY, dZ, dPsi
             Events = ["OK. Relative displacement done", "UNKNOWN", "BUSY", "NOTAVAILABLE", "INTERRUPTED"]
             print "Move by event", Event, Events[Event]
-            if Event == 0 or Event == 5: # Arrived or Interrupted
+            if Event == 0 or Event == 5:    # Arrived or Interrupted
                 movDone = False
-		except Exception, e: # Catch error
-			print "Error getting data from drone, error:", e
-			pass
+        except Exception, e:    # Catch error
+            print "Error getting data from drone, error:", e
+            pass
 	movDone = True
-	drone.wait( 4.0 ) # Waits () secs after arrive to its position
+	drone.wait( 4.0 )  # Waits () secs after arrive to its position
 
 if __name__ == "__main__":
     moveByFunction()

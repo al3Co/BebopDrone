@@ -51,7 +51,7 @@ def moveByControl():
 			print "Error getting data from drone, error:", e
 			pass
 	movDone = True
-	drone.wait( 1.0 )
+	drone.wait( 4.0 )
 
 if __name__ == "__main__":
     moveByFunction()

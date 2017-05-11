@@ -1,68 +1,58 @@
 #!/usr/bin/python
 """
     Starting for usage at the computer
-    Do not delete the except Typer error. GPS data error, added when include GPS
 """
 import time
 import math
 import sys
-import signal
-import inspect
-
 from core.bebop import *
+
 drone=Bebop()
 
+# Distance to move in [m] and dPsi [rad]
 dX = 0
 dY = 0
 dZ = 0
-dPsi = math.pi/4
+dPsi = math.pi/2
 
-def testFly2():
+movDone = True  # Flag to know when movements are done
+
+def moveByFunction():
     try:
         drone.takeoff()
         drone.wait( 1.0 )
         drone.hover()
-        for i in range (0,4):
-            drone.wait( 3.0 )
-            drone.moveBy( dX, dY, dZ, dPsi)
-        drone.wait( 1.0 )
+        for i in range (0,4):   # Try to rotate i times
+            print "Movement: ", i
+            drone.moveBy( dX, dY, dZ, dPsi) # Command to move to a relative position
+            moveByControl() # Stops the movements
         drone.hover()
+        drone.wait( 1.0 )
         drone.land()
         sys.exit(0)
     except ManualControlException, e:
         print
         print "ManualControlException"
-        if robot.flyingState is None or robot.flyingState == 1: # taking off
-            # unfortunately it is not possible to land during takeoff for ARDrone3 :(
+        if robot.flyingState is None or robot.flyingState == 1: # Taking off
             robot.emergency()
         robot.land()
 
-def testFly():
-    signal.signal(signal.SIGINT, signal_handler)
-    try:
-        drone.takeoff()
-        time.sleep(2)
-        drone.hover()
-        for i in range (0,4):
-            time.sleep(3)
-            drone.moveBy( dX, dY, dZ, dPsi)
-        time.sleep(1)
-        drone.hover()
-        drone.land()
-        sys.exit(0)
-    except (TypeError):
-        pass
-
-def signal_handler(signal, frame):
-    drone.update( cmd=navigateHomeCmd( 0 ) )
-    print('You pressed Ctrl+C!')
-    print('Landing')
-    drone.hover()
-    if drone.flyingState is None or drone.flyingState == 1: # taking off
-        drone.emergency()
-    drone.land()
-    sys.exit(0)
-
+def moveByControl():
+	while movDone: # While Event != OK or != Interrupted, keep moving
+        drone.update()
+        try:
+            (dX, dY, dZ, dPsi, Event) = drone.moveByEnd
+            print "Drone moved [mts, rad]:", dX, dY, dZ, dPsi
+            Events = ["OK. Relative displacement done", "UNKNOWN", "BUSY", "NOTAVAILABLE", "INTERRUPTED"]
+            print "Move by event", Event, Events[Event]
+            if Event == 0 or Event == 5:    # Arrived or Interrupted
+                movDone = False
+        except Exception, e:    # Catch error
+            print "Error getting data from drone, error:", e
+            pass
+	movDone = True
+	drone.wait( 4.0 )  # Waits () secs after arrive to its position
 
 if __name__ == "__main__":
-    testFly()
+    moveByFunction()
+

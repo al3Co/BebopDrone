@@ -43,10 +43,13 @@ def moveByControl():
 		try:
 			(dX, dY, dZ, dPsi, Event) = drone.moveByEnd
 			print "Drone moved [mts, rad]:", dX, dY, dZ, dPsi
-			movDone = False
+            Events = ["OK. Relative displacement done", "UNKNOWN", "BUSY", "NOTAVAILABLE", "INTERRUPTED"]
+            print "Move by event", Event, Events[Event]
+            if Event == 0 or Event == 5: #arrived or Interrupted
+                movDone = False
 		except Exception, e:
-			print "Some error:", e
-			break
+			print "Error getting data from drone, error:", e
+			pass
 	movDone = True
 	drone.wait( 1.0 )
 

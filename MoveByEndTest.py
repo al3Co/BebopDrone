@@ -37,8 +37,9 @@ def moveByFunction():
             robot.emergency()
         robot.land()
 
+# While Event != OK or != Interrupted, keep moving
 def moveByControl():
-	while movDone: # While Event != OK or != Interrupted, keep moving
+	while movDone:
         drone.update()
         try:
             (dX, dY, dZ, dPsi, Event) = drone.moveByEnd

@@ -46,7 +46,7 @@ def moveByControl():
 			movDone = False
 		except Exception, e:
 			print "Some error:", e
-			pass
+			break
 	movDone = True
 	drone.wait( 1.0 )
 

@@ -14,8 +14,8 @@ drone=Bebop()
 def main():
     try:
         drone.takeoff()
-        time.sleep(5)
         drone.hover()
+        time.sleep(5)
         drone.land()
         sys.exit(0)
     except KeyboardInterrupt, e:
